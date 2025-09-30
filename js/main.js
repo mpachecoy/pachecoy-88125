@@ -3,7 +3,7 @@ const pacientes = [];
 let menu = parseInt(prompt("1- Usuario nuevo | 2- Pedir Turno | 3- Control Turnos | 4- Salir"))
 
 function crearUsuario(nombre, edad, obraSocial) {
-    if (nombre != "" && edad != "" && obraSocial != "") {
+    if (nombre != " " && edad != " " && obraSocial != " ") {
         console.log(nombre)
         console.log(edad)
         console.log(obraSocial)
@@ -19,7 +19,6 @@ function crearUsuario(nombre, edad, obraSocial) {
     } else {
         alert("Ingrese los datos requeridos");
     }
-    condicion = false;
 }
 
 function existeUsuario(nombre) {
