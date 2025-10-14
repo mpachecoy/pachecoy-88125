@@ -32,10 +32,16 @@ function guardarUsuario(e) {
     obraSocial.value = ""
 }
 
+function eliminarUsuario(index) {
+    usuarios.splice(index, 1)
+    localStorage.setItem("usuarios", JSON.stringify(usuarios))
+    mostrarUsuarios()
+}
+
 function mostrarUsuarios() {
     listaUsuarios.innerHTML = ""
 
-    usuarios.forEach((usuario) => {
+    usuarios.forEach((usuario, index) => {
         const div = document.createElement("div")
         div.className = "card"
         div.innerHTML = `
@@ -45,6 +51,11 @@ function mostrarUsuarios() {
             <hr>
             <a href="./turnos.html" class="btn"> Sacar Turno</a>
         `
+        const buttonEliminar = document.createElement("button")
+        buttonEliminar.innerText = "Eliminar"
+        buttonEliminar.addEventListener("click", () => eliminarUsuario(index))
+
+        div.appendChild(buttonEliminar)
         listaUsuarios.appendChild(div)
     })
 }
