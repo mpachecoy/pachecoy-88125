@@ -1,8 +1,8 @@
-// Elementos del DOM
 const nombreUsuario = document.getElementById("nombreUsuario")
 const edadUsuario = document.getElementById("edadUsuario")
 const obraSocial = document.getElementById("obraSocial")
 const listaUsuarios = document.getElementById("listaUsuarios")
+const guardarFormulario = document.getElementById("formUsuario")
 
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
@@ -45,9 +45,12 @@ function mostrarUsuarios() {
         const div = document.createElement("div")
         div.className = "card"
         div.innerHTML = `
-            <strong>${usuario.nombre}</strong> <br>
-            Edad: ${usuario.edad} años <br>
-            Obra Social: ${usuario.obraSocial} <br>
+            <strong>${usuario.nombre}</strong>
+            <br>
+            Edad: ${usuario.edad} años 
+            <br>
+            Obra Social: ${usuario.obraSocial} 
+            <br>
             <hr>
             <a href="./turnos.html" class="btn"> Sacar Turno</a>
         `
@@ -60,7 +63,6 @@ function mostrarUsuarios() {
     })
 }
 
-
-document.getElementById("formUsuario").addEventListener("submit", guardarUsuario)
+guardarFormulario.addEventListener("submit", guardarUsuario)
 
 mostrarUsuarios()

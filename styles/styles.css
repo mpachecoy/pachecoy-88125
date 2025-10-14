@@ -16,15 +16,7 @@ h2 {
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-select {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 5px 0 15px;
     border: 1px solid #ccc;
@@ -62,6 +54,10 @@ button:hover {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.inicio {
+    font-size: 30px;
+}
+
 .btn {
     display: inline-block;
     background-color: #2a9d8f;
@@ -82,6 +78,7 @@ button:hover {
 }
 
 .card {
+    width: 100%;
     background: #e9f5f3;
     padding: 10px;
     border-radius: 5px;

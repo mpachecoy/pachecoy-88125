@@ -1,7 +1,7 @@
 const nombreIngresado = document.getElementById("nombre")
 const fechaIngresada = document.getElementById("fecha")
-const turnosSacados = document.getElementById("listaTurnos")
 const buttonGuardar = document.getElementById("guardarTurno")
+const turnosSacados = document.getElementById("listaTurnos")
 
 let turnos = JSON.parse(localStorage.getItem("turnos")) || []
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
@@ -9,14 +9,12 @@ let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 function guardarTurno() {
   const nombre = nombreIngresado.value
   const fecha = fechaIngresada.value
-
   if (nombre === "" || fecha === "") {
     alert("Complete todos los campos")
     return
   }
 
   const existe = usuarios.find(usuario => usuario.nombre.toLowerCase() === nombre.toLowerCase())
-
   if (existe) {
     turnos.push({ nombre, fecha })
     localStorage.setItem("turnos", JSON.stringify(turnos))
