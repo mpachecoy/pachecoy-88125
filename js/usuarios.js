@@ -6,22 +6,6 @@ const listaUsuarios = document.getElementById("listaUsuarios")
 
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
-function mostrarUsuarios() {
-    listaUsuarios.innerHTML = ""
-
-    usuarios.forEach((usuario) => {
-        const div = document.createElement("div")
-        div.className = "card"
-        div.innerHTML = `
-            <strong>${usuario.nombre}</strong> <br>
-            Edad: ${usuario.edad} años <br>
-            Obra Social: ${usuario.obraSocial} <br>
-            <a href="./turnos.html" class="btn"> Sacar Turno</a>
-        `
-        listaUsuarios.appendChild(div)
-    })
-}
-
 function guardarUsuario(e) {
     e.preventDefault()
     const nombre = nombreUsuario.value
@@ -47,6 +31,24 @@ function guardarUsuario(e) {
     edadUsuario.value = ""
     obraSocial.value = ""
 }
+
+function mostrarUsuarios() {
+    listaUsuarios.innerHTML = ""
+
+    usuarios.forEach((usuario) => {
+        const div = document.createElement("div")
+        div.className = "card"
+        div.innerHTML = `
+            <strong>${usuario.nombre}</strong> <br>
+            Edad: ${usuario.edad} años <br>
+            Obra Social: ${usuario.obraSocial} <br>
+            <hr>
+            <a href="./turnos.html" class="btn"> Sacar Turno</a>
+        `
+        listaUsuarios.appendChild(div)
+    })
+}
+
 
 document.getElementById("formUsuario").addEventListener("submit", guardarUsuario)
 

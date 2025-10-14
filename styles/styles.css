@@ -15,17 +15,6 @@ h2 {
     color: #333;
 }
 
-.container {
-    display: grid;
-    place-items: center;
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
 input {
     width: 100%;
     padding: 10px;
@@ -60,6 +49,17 @@ button {
 
 button:hover {
     background-color: #21867a;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn {
