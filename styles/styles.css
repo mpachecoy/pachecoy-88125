@@ -84,3 +84,25 @@ button:hover {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 5px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}

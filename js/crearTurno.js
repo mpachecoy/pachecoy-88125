@@ -5,6 +5,7 @@ const turnosSacados = document.getElementById("listaTurnos")
 
 let turnos = JSON.parse(localStorage.getItem("turnos")) || []
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
+let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
 function guardarTurno() {
   const nombre = nombreIngresado.value
@@ -58,3 +59,24 @@ function mostrarTurnos() {
 buttonGuardar.addEventListener("click", guardarTurno)
 
 mostrarTurnos()
+
+const menuBtn = document.getElementById("menuBtn");
+const menuOpciones = document.getElementById("menuOpciones");
+
+menuBtn.addEventListener("click", () => {
+  menuOpciones.style.display =
+    menuOpciones.style.display === "block" ? "none" : "block";
+});
+
+function mostrarMEdicos() {
+  menuOpciones.innerHTML = ""
+  medicos.forEach((medico, index) => {
+    const div = document.createElement("div")
+    div.className = "card"
+    div.innerHTML = `
+      <strong>${medico.nombre}</strong><br>
+      <hr>
+    `
+    menuOpciones.appendChild(div)
+  })
+}

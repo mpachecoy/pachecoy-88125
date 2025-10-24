@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="../js/turnos.js"></script>
+    <link rel="stylesheet" href="../styles/styles.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
+
+    <title>Gestión de Turnos</title>
+</head>
+
+<body>
+    <div>
+        <h1>GESTION DE TURNOS</h1>
+        <div class="container">
+            <h2>Nuevo Turno</h2>
+            <input type="text" id="nombreUsuario" placeholder="Nombre" required />
+            <input type="text" id="apellidoUsuario" placeholder="Apellido" required />
+
+            <button id="menuBtn">Validar</button>
+
+            <div id="calendar"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const { Calendar } = window.VanillaCalendarPro;
+                    const calendar = new Calendar('#calendar');
+                    calendar.init();
+                });
+            </script>
+            <button id="guardarTurno">Guardar Turno</button>
+
+            <div class="turnos">
+                <h2>Turnos Guardados</h2>
+                <div id="listaTurnos"></div>
+            </div>
+            <hr />
+            <a href="../index.html" class="btn">INICIO</a>
+        </div>
+    </div>
+</body>
+
+</html>

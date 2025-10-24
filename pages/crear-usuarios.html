@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="../js/usuarios.js"></script>
+    <script defer src="../js/crearUsuarios.js"></script>
     <link rel="stylesheet" href="../styles/styles.css" />
     <title>Gestion de Usuarios</title>
 </head>
@@ -15,16 +15,15 @@
         <div class="container">
             <h2>Nuevo Usuario</h2>
             <form id="formUsuario">
-                <input type="text" id="nombreUsuario" placeholder="Nombre completo" required />
+                <input type="text" id="nombreUsuario" placeholder="Nombre" required />
+                <input type="text" id="apellidoUsuario" placeholder="Apellido" required />
                 <input type="number" id="edadUsuario" placeholder="Edad" required />
+                <input type="mail" id="emailUsuario" placeholder="Email" required />                 
                 <input type="text" id="obraSocial" placeholder="Obra Social / Servicio" required />
                 <button type="submit">Guardar Usuario</button>
             </form>
 
-            <div class="usuarios">
-                <h3>Usuarios Registrados</h3>
-                <ul id="listaUsuarios"></ul>
-            </div>
+            <a href="../pages/lista-usuarios.html" class="btn">USUARIOS</a>
             <hr>
             <a href="../index.html" class="btn">INICIO</a>
         </div>
