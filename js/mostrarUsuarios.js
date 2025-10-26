@@ -1,4 +1,7 @@
+const listaUsuarios = document.getElementById("listaUsuarios")
+
 const URL = "./db/usuarios.json"
+let usuarios = JSON.parse(localStorage.getItem("usuarios"))
 
 function obtenerUsuarios (){
     fetch(URL)
@@ -24,7 +27,7 @@ function mostrarUsuarios() {
             Obra Social: ${usuario.obraSocial} 
             <br>
             <hr>
-            <a href="./turnos.html" class="btn"> Sacar Turno</a>
+            <a href="./crear-turnos.html" class="btn"> Sacar Turno</a>
         `
         const buttonEditar = document.createElement("button")
         buttonEditar.innerText = "Editar usuario"
@@ -46,3 +49,4 @@ function eliminarUsuario(index) {
 }
 
 mostrarUsuarios()
+obtenerUsuarios()

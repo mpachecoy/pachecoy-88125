@@ -6,9 +6,7 @@ const obraSocial = document.getElementById("obraSocial")
 const listaUsuarios = document.getElementById("listaUsuarios")
 const guardarFormulario = document.getElementById("formUsuario")
 
-
 const URL = "../db/usuarios.json"
-let usuarios = []
 
 function obtenerUsuarios (){
     fetch(URL)
@@ -21,6 +19,8 @@ function obtenerUsuarios (){
     .finally( () => console.log("Peticion finalizada"))
 }
 obtenerUsuarios()
+
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
 function generarID() {
     return Math.floor(Math.random() * 1000);
@@ -70,7 +70,9 @@ function guardarUsuario(e) {
     }
 
     usuarios.push(nuevoUsuario)
+    localStorage.setItem("usuarios", JSON.stringify(usuarios))
     console.log("Nuevo usuario", nuevoUsuario)
+    console.log(usuarios)
 
     nombreUsuario.value = ""
     apellidoUsuario.value = ""
@@ -80,4 +82,4 @@ function guardarUsuario(e) {
 }
 
 guardarFormulario.addEventListener("submit", guardarUsuario)
-console.log(usuarios)
+

@@ -4,14 +4,32 @@ const especialidadMedico = document.getElementById("especialidadMedico")
 const listaMedicos = document.getElementById("listaMedicos")
 const guardarFormulario = document.getElementById("formMedico")
 
+const URL = "../db/medicos.json"
+
+function obtenerMedicos (){
+    fetch(URL)
+    .then(res => res.json())
+    .then(data => {
+        usuarios = data
+        console.log("Medicoss cargados", usuarios)
+    })
+    .catch(err => console.log("Error en la peticion",err))
+    .finally( () => console.log("Peticion finalizada"))
+}
+obtenerMedicos()
+
+
 let medicos = JSON.parse(localStorage.getItem("medicos")) || []
+
+function generarID() {
+    return Math.floor(Math.random() * 1000);
+}
 
 function guardarMedico(e) {
     e.preventDefault()
     const nombre = nombreMedico.value
     const apellido = apellidoMedico.value
     const especialidad = especialidadMedico.value
-    console.log(nombre)
 
     if (nombre === "" || especialidad === "" || apellido === "") {
         alert("Complete todos los campos")
@@ -35,42 +53,20 @@ function guardarMedico(e) {
         return
     }
 
-    medicos.push({ nombre, apellido, especialidad })
+    const nuevoMedico = ({ 
+        id: generarID(),
+        nombre, 
+        apellido, 
+        especialidad 
+    })
+
+    medicos.push(nuevoMedico)
     localStorage.setItem("medicos", JSON.stringify(medicos))
-    mostrarMedicos()
 
     nombreMedico.value = ""
     apellidoMedico.value = ""
     especialidadMedico.value = ""
 }
 
-function eliminarMedico(index) {
-    medicos.splice(index, 1)
-    localStorage.setItem("medicos", JSON.stringify(medicos))
-    mostrarMedicos()
-}
-
-function mostrarMedicos() {
-    listaMedicos.innerHTML = ""
-
-    medicos.forEach((medico, index) => {
-        const div = document.createElement("div")
-        div.className = "card"
-        div.innerHTML = `
-            <strong>${medico.nombre}  ${medico.apellido}</strong>
-            <br>
-            Especialidad: ${medico.especialidad}
-            <br>
-        `
-        const buttonEliminar = document.createElement("button")
-        buttonEliminar.innerText = "Eliminar"
-        buttonEliminar.addEventListener("click", () => eliminarMedico(index))
-
-        div.appendChild(buttonEliminar)
-        listaMedicos.appendChild(div)
-    })
-}
 
 guardarFormulario.addEventListener("submit", guardarMedico)
-
-mostrarMedicos()
