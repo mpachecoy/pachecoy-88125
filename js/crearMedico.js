@@ -18,7 +18,6 @@ function obtenerMedicos (){
 }
 obtenerMedicos()
 
-
 let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
 function generarID() {
@@ -67,6 +66,5 @@ function guardarMedico(e) {
     apellidoMedico.value = ""
     especialidadMedico.value = ""
 }
-
 
 guardarFormulario.addEventListener("submit", guardarMedico)

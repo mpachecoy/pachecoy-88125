@@ -1,13 +1,15 @@
 const listaUsuarios = document.getElementById("listaUsuarios")
 
-const URL = "./db/usuarios.json"
-let usuarios = JSON.parse(localStorage.getItem("usuarios"))
+const URL = "../db/usuarios.json"
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
 function obtenerUsuarios (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        const usuarios = data
+        usuariosDB = data
+        console.log("Usuarios cargados de DB", usuariosDB)
+        usuarios.push(usuariosDB)
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))
@@ -20,7 +22,7 @@ function mostrarUsuarios() {
         const div = document.createElement("div")
         div.className = "card"
         div.innerHTML = `
-            <strong>${usuario.nombre}</strong>
+            <strong>${usuario.apellido}, ${usuario.nombre}</strong>
             <br>
             Edad: ${usuario.edad} años 
             <br>

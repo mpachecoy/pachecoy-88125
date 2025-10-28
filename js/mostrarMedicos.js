@@ -1,13 +1,15 @@
 const listaMedicos = document.getElementById("listaMedicos")
 
-const URL = "./db/medicos.json"
-let medicos = JSON.parse(localStorage.getItem("medicos"))
+const URL = "../db/medicos.json"
+let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
 function obtenerMedicos (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        const medicos = data
+        medicos = data
+        console.log("Medicos cargados", medicos)
+        mostrarMedicos(medicos)
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))

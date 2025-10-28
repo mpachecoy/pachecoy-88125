@@ -7,20 +7,20 @@ const listaUsuarios = document.getElementById("listaUsuarios")
 const guardarFormulario = document.getElementById("formUsuario")
 
 const URL = "../db/usuarios.json"
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
 function obtenerUsuarios (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        usuarios = data
-        console.log("Usuarios cargados", usuarios)
+        let usuariosDB = data
+        console.log("Usuarios cargados de DB", usuariosDB)
+        usuarios.push(usuariosDB)
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))
 }
 obtenerUsuarios()
-
-let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
 function generarID() {
     return Math.floor(Math.random() * 1000);
