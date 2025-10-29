@@ -1,24 +1,31 @@
 const nombreMedico = document.getElementById("nombreMedico")
 const apellidoMedico = document.getElementById("apellidoMedico")
+const emailMedico = document.getElementById("emailMedico")
 const especialidadMedico = document.getElementById("especialidadMedico")
 const listaMedicos = document.getElementById("listaMedicos")
 const guardarFormulario = document.getElementById("formMedico")
 
 const URL = "../db/medicos.json"
+let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
 function obtenerMedicos (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        usuarios = data
-        console.log("Medicoss cargados", usuarios)
+        const emailLocalStorage = medicos.map(medico => medico.email.toLowerCase())
+        const nuevosMedicoDB = data.filter(medicoDB => !emailLocalStorage.includes(medicoDB.email.toLowerCase()))
+        if(nuevosMedicoDB.length > 0){
+            medicos.push(...nuevosMedicoDB)
+            localStorage.setItem("medicos", JSON.stringify(medicos))
+            console.log(`${nuevosMedicoDB.length} medicos cargados`)         
+        } else {
+            console.log("No hay medicos nuevos en DB")
+        }
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))
 }
 obtenerMedicos()
-
-let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
 function generarID() {
     return Math.floor(Math.random() * 1000);
@@ -28,9 +35,10 @@ function guardarMedico(e) {
     e.preventDefault()
     const nombre = nombreMedico.value
     const apellido = apellidoMedico.value
+    const email = emailMedico.value
     const especialidad = especialidadMedico.value
 
-    if (nombre === "" || especialidad === "" || apellido === "") {
+    if (nombre === "" || especialidad === "" || apellido === "" || email === "") {
         alert("Complete todos los campos")
         return
     }
@@ -41,12 +49,11 @@ function guardarMedico(e) {
         !soloTexto.test(apellido) ||
         !soloTexto.test(especialidad)
     ) {
-        alert("Solo se permiten letras en nombre, apellido y especialidad");
+        alert("Solo se permiten letras en nombre, apellido y especialidad")
         return;
     }
 
-    const existe = medicos.find(
-        medico => medico.nombre.toLowerCase() === nombre.toLowerCase() && medico.apellido.toLowerCase() === apellido.toLowerCase());
+    const existe = medicos.find(medico => medico.email.toLowerCase() === email.toLowerCase())
     if (existe) {
         alert("Ya estas registrado")
         return
@@ -55,7 +62,8 @@ function guardarMedico(e) {
     const nuevoMedico = ({ 
         id: generarID(),
         nombre, 
-        apellido, 
+        apellido,
+        email,
         especialidad 
     })
 
@@ -64,6 +72,7 @@ function guardarMedico(e) {
 
     nombreMedico.value = ""
     apellidoMedico.value = ""
+    emailMedico.value = ""
     especialidadMedico.value = ""
 }
 

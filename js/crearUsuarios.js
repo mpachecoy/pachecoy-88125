@@ -13,9 +13,15 @@ function obtenerUsuarios (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        let usuariosDB = data
-        console.log("Usuarios cargados de DB", usuariosDB)
-        usuarios.push(usuariosDB)
+        const emailLocalStorage = usuarios.map(usuario => usuario.email.toLowerCase())
+        const nuevosUsuariosDB = data.filter(usuarioDB => !emailLocalStorage.includes(usuarioDB.email.toLowerCase()))
+        if(nuevosUsuariosDB.length > 0){
+            usuarios.push(...nuevosUsuariosDB)
+            localStorage.setItem("usuarios", JSON.stringify(usuarios))
+            console.log(`${nuevosUsuariosDB.length} usuarios cargados`)         
+        } else {
+            console.log("No hay usuarios nuevos en DB")
+        }
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))
@@ -66,7 +72,7 @@ function guardarUsuario(e) {
         apellido,
         edad,
         email,
-        obraSocial: obra || Particular
+        obraSocial: obra || "Particular"
     }
 
     usuarios.push(nuevoUsuario)

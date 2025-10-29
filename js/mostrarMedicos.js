@@ -7,9 +7,15 @@ function obtenerMedicos (){
     fetch(URL)
     .then(res => res.json())
     .then(data => {
-        medicos = data
-        console.log("Medicos cargados", medicos)
-        mostrarMedicos(medicos)
+        const emailLocalStorage = medicos.map(medico => medico.email.toLowerCase())
+        const nuevosMedicoDB = data.filter(medicoDB => !emailLocalStorage.includes(medicoDB.email.toLowerCase()))
+        if(nuevosMedicoDB.length > 0){
+            medicos.push(...nuevosMedicoDB)
+            localStorage.setItem("usuarios", JSON.stringify(medicos))
+            console.log(`${nuevosMedicoDB.length} medicos cargados`)         
+        } else {
+            console.log("No hay medicos nuevos en DB")
+        }
     })
     .catch(err => console.log("Error en la peticion",err))
     .finally( () => console.log("Peticion finalizada"))
@@ -23,6 +29,8 @@ function mostrarMedicos() {
         div.className = "card"
         div.innerHTML = `
             <strong>${medico.nombre}  ${medico.apellido}</strong>
+            <br>
+            ID: ${medico.id} Email: ${medico.email}
             <br>
             Especialidad: ${medico.especialidad}
             <br>
