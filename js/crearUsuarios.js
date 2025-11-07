@@ -36,7 +36,7 @@ function guardarUsuario(e) {
     e.preventDefault()
     const nombre = nombreUsuario.value
     const apellido = apellidoUsuario.value
-    const edad = edadUsuario.value
+    const edad = parseInt(edadUsuario.value)
     const email = emailUsuario.value
     const obra = obraSocial.value
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,29 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
         <h1>LISTA DE MEDICOS</h1>
         <div class="" id="listaMedicos">
-
         </div>
 
-            <hr>
-            <a href="../index.html" class="btn">INICIO</a>
-        </div>   
+        <!-- Formulario de edición oculto -->
+        <div id="editarMedicoContainer" style="display:none; margin-top:20px;">
+            <h3>Editar Medico</h3>
+            <form id="formEditarMedico">
+                <input type="text" id="editarNombre" placeholder="Nombre" required>
+                <input type="text" id="editarApellido" placeholder="Apellido" required>
+                <input type="email" id="editarEmail" placeholder="Email" required>
+                <input type="text" id="editarEspecialidad" placeholder="Especialidad">
+                <button type="submit">Guardar cambios</button>
+                <button type="button" id="cancelarEdicion">Cancelar</button>
+            </form>
+        </div>
+
+        <hr>
+        <a href="../index.html" class="btn">INICIO</a>
+    </div>
 </body>
+
 </html>
