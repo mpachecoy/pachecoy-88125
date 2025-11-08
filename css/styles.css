@@ -85,8 +85,6 @@ button:hover {
     margin-bottom: 10px;
 }
 
-
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -105,4 +103,29 @@ button:hover {
 
 .dropdown-content a:hover {
   background-color: #ddd;
+}
+
+input[type="date"],
+select {
+  padding: 8px 10px;
+  border: 1px solid #bfcad3;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.2s ease;
+}
+
+input[type="date"]:focus,
+select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+@media (min-width: 600px) {
+  .calendar-box {
+    max-width: 500px;
+    margin: 20px auto;
+  }
 }
