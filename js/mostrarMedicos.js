@@ -66,7 +66,7 @@ function editarMedico(medico, index) {
     editarNombre.value = medico.nombre
     editarApellido.value = medico.apellido
     editarEmail.value = medico.email
-    editarEspecialidad.value = medico.especialidad || ""
+    editarEspecialidad.value = medico.especialidad
 }
 
 formEditarMedico.addEventListener("submit", (e) => {

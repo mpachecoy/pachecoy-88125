@@ -21,14 +21,21 @@
             <input type="mail" id="emailUsuario" placeholder="Email" required />
             <button id="validarUsuario">Validar</button>
 
-            <div id="calendar"></div>
+            <div id="calendar" style="display: none;">
+                <input type="date" id="fechaTurno" class="input-fecha">
+                <select id="especialidad">
+                    <option value="">-- Especialidad --</option>
+                </select>
+                <select id="medicoDisponible">
+                    <option value="">-- Medico --</option>
+                </select>
 
-            <label for="horarioTurno">Horario disponible:</label>
-            <select id="horarioTurno">
-                <option value="">-- Elegí un horario --</option>
-            </select>
+                <label for="horarioTurno">Horario disponible:</label>
+                <select id="horarioTurno">
+                    <option value="">-- Elegí un horario --</option>
+                </select>
 
-            <button id="guardarTurno">Guardar turno</button>
+            </div>
 
             <button id="guardarTurno">Guardar</button>
 
