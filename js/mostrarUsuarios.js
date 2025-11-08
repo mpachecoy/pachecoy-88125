@@ -30,7 +30,6 @@ function obtenerUsuarios() {
         .catch(err => console.log("Error en la peticion", err))
         .finally(() => console.log("Peticion finalizada"))
 }
-obtenerUsuarios()
 
 function mostrarUsuarios() {
     listaUsuarios.innerHTML = ""
