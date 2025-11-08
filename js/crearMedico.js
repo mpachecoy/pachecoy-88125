@@ -8,22 +8,22 @@ const guardarFormulario = document.getElementById("formMedico")
 const URL = "../db/medicos.json"
 let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
-function obtenerMedicos (){
+function obtenerMedicos() {
     fetch(URL)
-    .then(res => res.json())
-    .then(data => {
-        const emailLocalStorage = medicos.map(medico => medico.email.toLowerCase())
-        const nuevosMedicoDB = data.filter(medicoDB => !emailLocalStorage.includes(medicoDB.email.toLowerCase()))
-        if(nuevosMedicoDB.length > 0){
-            medicos.push(...nuevosMedicoDB)
-            localStorage.setItem("medicos", JSON.stringify(medicos))
-            console.log(`${nuevosMedicoDB.length} medicos cargados`)         
-        } else {
-            console.log("No hay medicos nuevos en DB")
-        }
-    })
-    .catch(err => console.log("Error en la peticion",err))
-    .finally( () => console.log("Peticion finalizada"))
+        .then(res => res.json())
+        .then(data => {
+            const emailLocalStorage = medicos.map(medico => medico.email.toLowerCase())
+            const nuevosMedicoDB = data.filter(medicoDB => !emailLocalStorage.includes(medicoDB.email.toLowerCase()))
+            if (nuevosMedicoDB.length > 0) {
+                medicos.push(...nuevosMedicoDB)
+                localStorage.setItem("medicos", JSON.stringify(medicos))
+                console.log(`${nuevosMedicoDB.length} medicos cargados`)
+            } else {
+                console.log("No hay medicos nuevos en DB")
+            }
+        })
+        .catch(err => console.log("Error en la peticion", err))
+        .finally(() => console.log("Peticion finalizada"))
 }
 obtenerMedicos()
 
@@ -39,7 +39,10 @@ function guardarMedico(e) {
     const especialidad = especialidadMedico.value
 
     if (nombre === "" || especialidad === "" || apellido === "" || email === "") {
-        alert("Complete todos los campos")
+        Swal.fire({
+            icon: "error",
+            title: "Complete los datos",
+        })
         return
     }
 
@@ -49,22 +52,29 @@ function guardarMedico(e) {
         !soloTexto.test(apellido) ||
         !soloTexto.test(especialidad)
     ) {
-        alert("Solo se permiten letras en nombre, apellido y especialidad")
-        return;
+        Swal.fire({
+            icon: "error",
+            title: "Datos inválidos",
+            text: "Solo se permiten letras."
+        })
+        return
     }
 
     const existe = medicos.find(medico => medico.email.toLowerCase() === email.toLowerCase())
     if (existe) {
-        alert("Ya estas registrado")
+        Swal.fire({
+            icon: "error",
+            title: "Ya estas registrado",
+        })
         return
     }
 
-    const nuevoMedico = ({ 
+    const nuevoMedico = ({
         id: generarID(),
-        nombre, 
+        nombre,
         apellido,
         email,
-        especialidad 
+        especialidad
     })
 
     medicos.push(nuevoMedico)
@@ -74,6 +84,14 @@ function guardarMedico(e) {
     apellidoMedico.value = ""
     emailMedico.value = ""
     especialidadMedico.value = ""
+
+    Swal.fire({
+        icon: "success",
+        title: "Médico guardado",
+        text: "El médico se registró correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
 }
 
 guardarFormulario.addEventListener("submit", guardarMedico)

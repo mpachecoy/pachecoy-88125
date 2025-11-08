@@ -91,6 +91,13 @@ formEditarUsuario.addEventListener("submit", (e) => {
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
     mostrarUsuarios()
 
+    Swal.fire({
+        icon: "success",
+        title: "Usuario Editado",
+        text: "Editado correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
     formEditarUsuario.reset()
     editarUsuarioContainer.style.display = "none"
     usuarioEnEdicion = null
@@ -106,6 +113,14 @@ function eliminarUsuario(index) {
     usuarios.splice(index, 1)
     localStorage.setItem("usuarios", JSON.stringify(usuarios))
     mostrarUsuarios()
+
+    Swal.fire({
+        icon: "success",
+        title: "Usuario Eliminado",
+        text: "Eliminado correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
 }
 
 mostrarUsuarios()

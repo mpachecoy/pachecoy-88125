@@ -1,33 +1,53 @@
-const nombreIngresado = document.getElementById("nombre")
-const fechaIngresada = document.getElementById("fecha")
+const nombreIngresado = document.getElementById("nombreUsuario")
+const apellidoIngresado = document.getElementById("apellidoUsuario")
+const emailIngresado = document.getElementById("emailUsuario")
+const buttonValidar = document.getElementById("validarUsuario")
 const buttonGuardar = document.getElementById("guardarTurno")
 const turnosSacados = document.getElementById("listaTurnos")
+const calendario = document.getElementById("calendar")
 
 let turnos = JSON.parse(localStorage.getItem("turnos")) || []
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 let medicos = JSON.parse(localStorage.getItem("medicos")) || []
 
-function guardarTurno() {
+function validarUsuario() {
   const nombre = nombreIngresado.value
-  const fecha = fechaIngresada.value
-  if (nombre === "" || fecha === "") {
+  const apellido = apellidoIngresado.value
+  const email = emailIngresado.value
+
+  if (nombre === "" || apellido === "" || email === "") {
     alert("Complete todos los campos")
     return
   }
-
-  const existe = usuarios.find(usuario => usuario.nombre.toLowerCase() === nombre.toLowerCase())
-  if (existe) {
-    turnos.push({ nombre, fecha })
-    localStorage.setItem("turnos", JSON.stringify(turnos))
-    mostrarTurnos()
-  } else {
-    alert("Debe crear un nuevo usuario")
-    window.location.href = "./usuarios.html"
-    return
+  const soloTexto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+  if (
+    !soloTexto.test(nombre) ||
+    !soloTexto.test(apellido)
+  ) {
+    alert("Solo se permiten letras");
+    return;
   }
 
+  const existe = usuarios.find(usuario => usuario.email.toLowerCase() === email.toLowerCase())
+
+  if (existe) {
+    console.log("Usuario validado")
+    mostrarCalendario()
+    guardarTurno()
+  } else {
+    alert("Debe crear un nuevo usuario")
+    window.location.href = "./crear-usuarios.html"
+    return
+  }
+}
+
+function guardarTurno() {
+
+
   nombreIngresado.value = ""
-  fechaIngresada.value = ""
+  apellidoIngresado.value = ""
+  emailIngresado.value = ""
+
 }
 
 function eliminarTurno(index) {
@@ -36,6 +56,18 @@ function eliminarTurno(index) {
   mostrarTurnos()
 }
 
+function mostrarCalendario() {
+  calendario.innerHTML = ""
+  const script = document.createElement("script")
+  script.innerHTML = `
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const { Calendar } = window.VanillaCalendarPro;
+                    const calendar = new Calendar('#calendar');
+                    calendar.init();
+                });
+  `
+  calendario.appendChild(script)
+}
 
 function mostrarTurnos() {
   turnosSacados.innerHTML = ""
@@ -56,27 +88,7 @@ function mostrarTurnos() {
   })
 }
 
+buttonValidar.addEventListener("click", validarUsuario)
 buttonGuardar.addEventListener("click", guardarTurno)
 
 mostrarTurnos()
-
-const menuBtn = document.getElementById("menuBtn");
-const menuOpciones = document.getElementById("menuOpciones");
-
-menuBtn.addEventListener("click", () => {
-  menuOpciones.style.display =
-    menuOpciones.style.display === "block" ? "none" : "block";
-});
-
-function mostrarMEdicos() {
-  menuOpciones.innerHTML = ""
-  medicos.forEach((medico, index) => {
-    const div = document.createElement("div")
-    div.className = "card"
-    div.innerHTML = `
-      <strong>${medico.nombre}</strong><br>
-      <hr>
-    `
-    menuOpciones.appendChild(div)
-  })
-}

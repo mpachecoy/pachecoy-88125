@@ -9,22 +9,22 @@ const guardarFormulario = document.getElementById("formUsuario")
 const URL = "../db/usuarios.json"
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
 
-function obtenerUsuarios (){
+function obtenerUsuarios() {
     fetch(URL)
-    .then(res => res.json())
-    .then(data => {
-        const emailLocalStorage = usuarios.map(usuario => usuario.email.toLowerCase())
-        const nuevosUsuariosDB = data.filter(usuarioDB => !emailLocalStorage.includes(usuarioDB.email.toLowerCase()))
-        if(nuevosUsuariosDB.length > 0){
-            usuarios.push(...nuevosUsuariosDB)
-            localStorage.setItem("usuarios", JSON.stringify(usuarios))
-            console.log(`${nuevosUsuariosDB.length} usuarios cargados`)         
-        } else {
-            console.log("No hay usuarios nuevos en DB")
-        }
-    })
-    .catch(err => console.log("Error en la peticion",err))
-    .finally( () => console.log("Peticion finalizada"))
+        .then(res => res.json())
+        .then(data => {
+            const emailLocalStorage = usuarios.map(usuario => usuario.email.toLowerCase())
+            const nuevosUsuariosDB = data.filter(usuarioDB => !emailLocalStorage.includes(usuarioDB.email.toLowerCase()))
+            if (nuevosUsuariosDB.length > 0) {
+                usuarios.push(...nuevosUsuariosDB)
+                localStorage.setItem("usuarios", JSON.stringify(usuarios))
+                console.log(`${nuevosUsuariosDB.length} usuarios cargados`)
+            } else {
+                console.log("No hay usuarios nuevos en DB")
+            }
+        })
+        .catch(err => console.log("Error en la peticion", err))
+        .finally(() => console.log("Peticion finalizada"))
 }
 obtenerUsuarios()
 
@@ -41,7 +41,10 @@ function guardarUsuario(e) {
     const obra = obraSocial.value
 
     if (nombre === "" || apellido === "" || edad === "" || email === "") {
-        alert("Complete todos los campos")
+        Swal.fire({
+            icon: "error",
+            title: "Complete los datos",
+        })
         return
     }
 
@@ -51,18 +54,28 @@ function guardarUsuario(e) {
         !soloTexto.test(apellido) ||
         !soloTexto.test(obra)
     ) {
-        alert("Solo se permiten letras");
-        return;
+        Swal.fire({
+            icon: "error",
+            title: "Datos inválidos",
+            text: "Solo se permiten letras."
+        })
+        return
     }
 
     if (edad <= 0) {
-        alert("Edad no permitida")
+        Swal.fire({
+            icon: "error",
+            title: "Cargaste mal la edad.",
+        })
         return
     }
 
     const existe = usuarios.find(usuario => usuario.email.toLowerCase() === email.toLowerCase())
     if (existe) {
-        alert("Ya existe un usuario con ese nombre")
+        Swal.fire({
+            icon: "error",
+            title: "Ya estas registrado",
+        })
         return
     }
 
@@ -85,6 +98,14 @@ function guardarUsuario(e) {
     emailUsuario.value = ""
     edadUsuario.value = ""
     obraSocial.value = ""
+
+    Swal.fire({
+        icon: "success",
+        title: "Usuario guardado",
+        text: "El usuario se registró correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
 }
 
 guardarFormulario.addEventListener("submit", guardarUsuario)

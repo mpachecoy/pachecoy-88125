@@ -85,6 +85,14 @@ formEditarMedico.addEventListener("submit", (e) => {
     localStorage.setItem("medicos", JSON.stringify(medicos))
     mostrarMedicos()
 
+    Swal.fire({
+        icon: "success",
+        title: "Medico Editado",
+        text: "Editado correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
+
     formEditarMedico.reset()
     editarMedicoConteiner.style.display = "none"
     medicoEnEdicion = null
@@ -100,6 +108,14 @@ function eliminarMedico(index) {
     medicos.splice(index, 1)
     localStorage.setItem("medicos", JSON.stringify(medicos))
     mostrarMedicos()
+
+    Swal.fire({
+        icon: "success",
+        title: "Medico Eliminado",
+        text: "Eliminado correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    })
 }
 
 mostrarMedicos()

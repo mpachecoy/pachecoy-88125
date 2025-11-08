@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="../js/turnos.js"></script>
-    <link rel="stylesheet" href="../styles/styles.css" />
-
+    <script defer src="../js/crearTurno.js"></script>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/styles/index.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/index.js" defer></script>
 
@@ -20,16 +20,12 @@
             <input type="text" id="nombreUsuario" placeholder="Nombre" required />
             <input type="text" id="apellidoUsuario" placeholder="Apellido" required />
             <input type="mail" id="emailUsuario" placeholder="Email" required />
-            <button id="menuBtn">Validar</button>
+            <button id="validarUsuario">Validar</button>
 
-            <div id="calendar"></div>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const { Calendar } = window.VanillaCalendarPro;
-                    const calendar = new Calendar('#calendar');
-                    calendar.init();
-                });
-            </script>
+            <div id="calendar">
+
+            </div>
+
             <button id="guardarTurno">Guardar</button>
 
             <div class="turnos">
